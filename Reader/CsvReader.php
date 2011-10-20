@@ -1,6 +1,6 @@
 <?php
 
-namespace Ddeboer\DataImportBundle;
+namespace Ddeboer\DataImportBundle\Reader;
 
 use Ddeboer\DataImportBundle\Reader;
 
