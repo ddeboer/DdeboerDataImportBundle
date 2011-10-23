@@ -36,6 +36,10 @@ class DateTimeConverter implements Converter
      */
     public function convert($input)
     {
+        if (!$input) {
+            return;
+        }
+
         if ($this->format) {
             return \DateTime::createFromFormat($this->format, $input);
         }
