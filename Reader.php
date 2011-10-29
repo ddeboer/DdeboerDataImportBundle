@@ -8,5 +8,9 @@ namespace Ddeboer\DataImportBundle;
  * @author David de Boer <david@ddeboer.nl>
  */
 interface Reader extends \Iterator
-{    
+{
+    /**
+     * @return array
+     */
+    function getFields();
 }

@@ -226,4 +226,9 @@ class CsvReader implements Reader, \OuterIterator, \SeekableIterator
     {
         return $this->file->seek($pointer);
     }
+
+    public function getFields()
+    {
+        return $this->columnHeaders;
+    }
 }
