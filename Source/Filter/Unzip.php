@@ -2,7 +2,9 @@
 
 namespace Ddeboer\DataImportBundle\Source\Filter;
 
-class Unzip
+use Ddeboer\DataImportBundle\Source\SourceFilter;
+
+class Unzip implements SourceFilter
 {
     private $target;
     private $filename;
@@ -10,8 +12,12 @@ class Unzip
     public function __construct($filename, $target = null)
     {
         $this->filename = $filename;
+        $this->target = $target;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function filter(\SplFileObject $file)
     {
         $zip = new \ZipArchive();
