@@ -98,7 +98,12 @@ $workflow->addConverter('twn_datumbeschikking', $dateTimeConverter)
          })
          ->addConverterClosure('twn_nummervan', function($input) {
              return str_replace('-', '', $input);
-         });
+         })
+
+// For now, no writers are supplied yet, so implement your own or use a closure
+        ->addWriterClosure(function($csvLine) {
+            var_dump($csvLine);
+        });
 
 // Process the workflow
 $workflow->process();
