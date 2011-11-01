@@ -41,7 +41,12 @@ class DateTimeConverter implements Converter
         }
 
         if ($this->format) {
-            return \DateTime::createFromFormat($this->format, $input);
+            $date = \DateTime::createFromFormat($this->format, $input);
+            if (false === $date) {
+                throw new \UnexpectedValueException(
+                    $input . ' is not a valid date/time according to format ' . $this->format);
+            }
+            return $date;
         }
         return new \DateTime($input);
     }
