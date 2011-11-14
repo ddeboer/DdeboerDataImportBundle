@@ -57,7 +57,7 @@ class Workflow
     /**
      * Add a filter to the workflow
      *
-     * A filter decides whether an item is accepted into the import chain.
+     * A filter decides whether an item is accepted into the import process.
      *
      * @param Filter $filter
      * @return Workflow
@@ -65,6 +65,17 @@ class Workflow
     public function addFilter(Filter $filter)
     {
         $this->filters[] = $filter;
+        return $this;
+    }
+
+    /**
+     * Add a filter closure to the workflow
+     *
+     * A filter decides whether an item is accepted into the import process.
+     */
+    public function addFilterClosure(\Closure $closure)
+    {
+        $this->filters[] = $closure;
         return $this;
     }
 
@@ -194,11 +205,18 @@ class Workflow
     {
         foreach ($this->filters as $filter) {
             if ($filter instanceof Filter) {
-                return $filter->filter($item);
-            } else {
-                return $filter($item);
-            }
+                if (false == $filter->filter($item)) {
+                    return false;
+                }
+            } elseif (is_callable($filter)) {
+                if (false == $filter($item)) {
+                    return false;
+                }
+            } 
         }
+
+        // Return true if no filters failed
+        return true;
     }
 
     /**
