@@ -8,14 +8,13 @@ use Ddeboer\DataImportBundle\Source\SourceFilter;
  * Provide uncompression for LZW-compressed files (.Z files)
  *
  * .Z files cannot be uncompressed using native PHP tools, so we’ll have to
- * resort to the Linux command line.
+ * resort to the Linux command line. You’ll need to install the zcat binary.
  *
  * @author David de Boer <david@ddeboer.nl>
  */
 class Uncompress implements SourceFilter
 {
     private $target;
-    private $filename;
     private $zcatBinaryPath = 'zcat';
 
     public function __construct($target = null)
@@ -43,9 +42,12 @@ class Uncompress implements SourceFilter
         $target = $this->target ? $this->target : tempnam(null, null);
 
         // Add -f flag to skip confirmation
-        $cmd = exec($this->zcatBinaryPath . ' -f '
-             . escapeshellarg($file->getPathname()) . ' > '
-             . escapeshellarg($target), $output, $returnVar);
+        exec(sprintf('%s -f %s > %s 2>/dev/null',
+                $this->getZcatBinaryPath(),
+                escapeshellarg($file->getPathname()),
+                escapeshellarg($target)), 
+            $output, $returnVar
+        );
 
         if ($returnVar !== 0) {
             throw new \Exception('Error occurred: ' . implode(', ', $output));

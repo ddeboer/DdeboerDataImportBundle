@@ -4,6 +4,7 @@ namespace Ddeboer\DataImportBundle\Writer;
 
 use Ddeboer\DataImportBundle\Writer;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * A bulk Doctrine writer
@@ -35,6 +36,11 @@ class DoctrineWriter extends Writer
      * @var EntityRepository
      */
     protected $entityRepository;
+
+    /**
+     * @var ClassMetadata
+     */
+    protected $entityMetadata;
 
     /**
      * Number of entities to be persisted per flush
@@ -147,17 +153,15 @@ class DoctrineWriter extends Writer
         }
 
         if (!$entity) {
-            $entity = new $this->entityMetadata->name;
+            $className = $this->entityMetadata->getName();
+            $entity = new $className;
         }
 
         foreach ($this->entityMetadata->getFieldNames() as $fieldName) {
             if (isset($item[$fieldName])) {
-                // Setting the values through the entity metadata does bypass
-                // the setters in the entity. This might be a bad thing.
-                $this->entityMetadata->setFieldValue($entity, $fieldName, $item[$fieldName]);
-//                $entity->{'set' . ucfirst($fieldName)}($item[$fieldName]);
+                $entity->{'set' . ucfirst($fieldName)}($item[$fieldName]);
             } elseif (method_exists($item, 'get' . ucfirst($fieldName))) {
-//                $entity->{'set' . ucfirst($fieldName)}($item->{'get' . ucfirst($fieldName)});
+                $entity->{'set' . ucfirst($fieldName)}($item->{'get' . ucfirst($fieldName)});
             }
         }
 

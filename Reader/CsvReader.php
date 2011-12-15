@@ -9,7 +9,7 @@ use Ddeboer\DataImportBundle\Reader;
  * 
  * @author David de Boer <david@ddeboer.nl>
  */
-class CsvReader implements Reader, \OuterIterator, \SeekableIterator
+class CsvReader implements Reader, \SeekableIterator
 {
     /**
      * The field delimiter (one character only)
@@ -137,19 +137,6 @@ class CsvReader implements Reader, \OuterIterator, \SeekableIterator
     }
     
     /**
-     * Read header row from CSV file
-     * 
-     * @param \SplFileObject
-     * @return array        Column headers
-     */
-    protected function readHeaderRow($rowNumber)
-    {
-        $headerRow = $this->file->seek($rowNumber);
-        $headers = $this->file->current();
-        return $headers;
-    }
-    
-    /**
      * Rewind the file pointer
      * 
      * If a header row has been set, the pointer is set just below the header 
@@ -202,11 +189,6 @@ class CsvReader implements Reader, \OuterIterator, \SeekableIterator
         return $rows;
     }
     
-    public function getInnerIterator()
-    {
-        return $this->file;
-    }
-    
     public function next()
     {
         return $this->file->next();
@@ -224,11 +206,36 @@ class CsvReader implements Reader, \OuterIterator, \SeekableIterator
     
     public function seek($pointer)
     {
-        return $this->file->seek($pointer);
+        $this->file->seek($pointer);
     }
 
     public function getFields()
     {
         return $this->columnHeaders;
+    }
+
+    /**
+     * Get a row
+     * 
+     * @param int $number   Row number
+     * @return array
+     */
+    public function getRow($number)
+    {
+        $this->seek($number);
+        return $this->current();
+    }
+
+    /**
+     * Read header row from CSV file
+     *
+     * @param \SplFileObject
+     * @return array        Column headers
+     */
+    protected function readHeaderRow($rowNumber)
+    {
+        $this->file->seek($rowNumber);
+        $headers = $this->file->current();
+        return $headers;
     }
 }

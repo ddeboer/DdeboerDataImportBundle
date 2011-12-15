@@ -8,7 +8,13 @@ class Unzip implements SourceFilter
 {
     private $target;
     private $filename;
-    
+
+    /**
+     * Construnct unzip filter
+     *
+     * @param string $filename  The filename in the zip file to return
+     * @param string $target    Target directory
+     */
     public function __construct($filename, $target = null)
     {
         $this->filename = $filename;
