@@ -159,7 +159,10 @@ class DoctrineWriter extends Writer
 
         foreach ($this->entityMetadata->getFieldNames() as $fieldName) {
             if (isset($item[$fieldName])) {
-                $entity->{'set' . ucfirst($fieldName)}($item[$fieldName]);
+                $setter = 'set' . ucfirst($fieldName);
+                if (method_exists($entity, $setter)) {
+                    $entity->$setter($item[$fieldName]);
+                }                
             } elseif (method_exists($item, 'get' . ucfirst($fieldName))) {
                 $entity->{'set' . ucfirst($fieldName)}($item->{'get' . ucfirst($fieldName)});
             }
