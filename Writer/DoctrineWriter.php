@@ -102,6 +102,17 @@ class DoctrineWriter extends Writer
         return $this;
     }
 
+    public function getTruncate()
+    {
+        return $this->truncate;
+    }
+
+    public function setTruncate($truncate)
+    {
+        $this->truncate = $truncate;
+        return $this;
+    }
+
     /**
      * Disable Doctrine logging
      *
