@@ -113,6 +113,12 @@ class DoctrineWriter extends Writer
         return $this;
     }
 
+    public function disableTruncate()
+    {
+        $this->truncate = false;
+        return $this;
+    }
+
     /**
      * Disable Doctrine logging
      *
@@ -169,13 +175,27 @@ class DoctrineWriter extends Writer
         }
 
         foreach ($this->entityMetadata->getFieldNames() as $fieldName) {
+
+            $value = null;
             if (isset($item[$fieldName])) {
+                $value = $item[$fieldName];
+            } elseif (method_exists($item, 'get' . ucfirst($fieldName))) {
+                $value = $item->{'get' . ucfirst($fieldName)};
+            }
+
+            if (!$value) {
+                continue;
+            }
+
+            if (!($value instanceof \DateTime)
+                || $value != $this->entityMetadata->getFieldValue(
+                    $entity, $fieldName
+                ))
+            {
                 $setter = 'set' . ucfirst($fieldName);
                 if (method_exists($entity, $setter)) {
-                    $entity->$setter($item[$fieldName]);
-                }                
-            } elseif (method_exists($item, 'get' . ucfirst($fieldName))) {
-                $entity->{'set' . ucfirst($fieldName)}($item->{'get' . ucfirst($fieldName)});
+                    $entity->$setter($value);
+                }            
             }
         }
 
