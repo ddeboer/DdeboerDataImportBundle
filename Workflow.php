@@ -38,6 +38,13 @@ class Workflow
     protected $filters = array();
 
     /**
+     * Array of filters that will be checked after data conversion
+     *
+     * @var Filter[]
+     */
+    protected $afterConversionFilters = array();
+
+    /**
      * Array of mappings
      *
      * @var array
@@ -65,6 +72,12 @@ class Workflow
     public function addFilter(Filter $filter)
     {
         $this->filters[] = $filter;
+        return $this;
+    }
+
+    public function addFilterAfterConversion(Filter $filter)
+    {
+        $this->afterConversionFilters[] = $filter;
         return $this;
     }
 
@@ -176,12 +189,18 @@ class Workflow
         // Read all items
         foreach ($this->reader as $item) {
 
-            // Filter each item
-            if (!$this->filterItem($item)) {
+            // Apply filters before conversion
+            if (!$this->filterItem($item, $this->filters)) {
                 continue;
             }
 
             $convertedItem = $this->convertItem($item);
+
+            // Apply filters after conversion
+            if (!$this->filterItem($convertedItem, $this->afterConversionFilters)) {
+                continue;
+            }
+
             $mappedItem = $this->mapItem($convertedItem);
 
             foreach ($this->writers as $writer) {
@@ -201,9 +220,9 @@ class Workflow
      * @param array $item
      * @return boolean
      */
-    protected function filterItem(array $item)
+    protected function filterItem(array $item, array $filters)
     {
-        foreach ($this->filters as $filter) {
+        foreach ($filters as $filter) {
             if ($filter instanceof Filter) {
                 if (false == $filter->filter($item)) {
                     return false;
