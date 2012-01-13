@@ -2,13 +2,11 @@
 
 namespace Ddeboer\DataImportBundle\Writer;
 
-use Ddeboer\DataImportBundle\Writer;
-
 /**
  * Writes to a CSV file
  *
  */
-class CsvWriter extends Writer
+class CsvWriter extends AbstractWriter
 {
     private $delimiter = ';';
     private $enclosure = '"';
