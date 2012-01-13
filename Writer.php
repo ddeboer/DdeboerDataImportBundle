@@ -3,21 +3,18 @@
 namespace Ddeboer\DataImportBundle;
 
 /**
- * Persists data in a storage medium, such as a database, XML file, etc.
+ * Persists data in a storage medium, such as a database, CSV or XML file, etc.
  *
  * @author David de Boer <david@ddeboer.nl>
  */
-abstract class Writer
+interface Writer
 {
     /**
      * Prepare the writer before writing the items
      *
-     * This template method can be overridden in concrete writer
-     * implementations.
-     *
      * @return Writer
      */
-    public function prepare() {}
+    function prepare();
     
     /**
      * Write one data item
@@ -27,15 +24,12 @@ abstract class Writer
      *
      * @return Writer
      */
-    abstract public function writeItem(array $item, array $originalItem = array());
+    function writeItem(array $item, array $originalItem = array());
     
     /**
      * Wrap up the writer after all items have been written
      *
-     * This template method can be overridden in concrete writer
-     * implementations.
-     *
      * @return Writer
      */
-    public function finish() {}
+    function finish();
 }

@@ -2,7 +2,6 @@
 
 namespace Ddeboer\DataImportBundle\Writer;
 
-use Ddeboer\DataImportBundle\Writer;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
@@ -14,7 +13,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
  *
  * @author David de Boer <david@ddeboer.nl>
  */
-class DoctrineWriter extends Writer
+class DoctrineWriter extends AbstractWriter
 {
     /**
      * Doctrine entity manager
