@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/ddeboer/DdeboerDataImportBundle.png)](https://secure.travis-ci.org/ddeboer/DdeboerDataImportBundle.png)
+[![Build Status](https://secure.travis-ci.org/ddeboer/DdeboerDataImportBundle.png)](http://travis-ci.org/ddeboer/DdeboerDataImportBundle)
 
 Ddeboer Data Import Bundle
 ==========================
