@@ -160,8 +160,8 @@ class DoctrineWriter extends AbstractWriter
         // first
         if (false === $this->truncate) {
             if ($this->index) {
-                $entity = $this->entityRepository->findBy(array(
-                    $this->index => $item[$index]
+                $entity = $this->entityRepository->findOneBy(array(
+                    $this->index => $item[$this->index]
                 ));
             } else {
                 $entity = $this->entityRepository->find(current($item));
