@@ -173,29 +173,8 @@ class DoctrineWriter extends AbstractWriter
             $entity = new $className;
         }
 
-        foreach ($this->entityMetadata->getFieldNames() as $fieldName) {
-
-            $value = null;
-            if (isset($item[$fieldName])) {
-                $value = $item[$fieldName];
-            } elseif (method_exists($item, 'get' . ucfirst($fieldName))) {
-                $value = $item->{'get' . ucfirst($fieldName)};
-            }
-
-            if (!$value) {
-                continue;
-            }
-
-            if (!($value instanceof \DateTime)
-                || $value != $this->entityMetadata->getFieldValue(
-                    $entity, $fieldName
-                ))
-            {
-                $setter = 'set' . ucfirst($fieldName);
-                if (method_exists($entity, $setter)) {
-                    $entity->$setter($value);
-                }            
-            }
+        if ($this->updateItem($entity, $item) === false) {
+            continue;
         }
 
         $this->entityManager->persist($entity);
@@ -203,6 +182,36 @@ class DoctrineWriter extends AbstractWriter
         if (($this->counter % $this->batchSize) == 0) {
             $this->entityManager->flush();
             $this->entityManager->clear();
+        }
+    }
+    
+    protected function updateItem($entity, $item)
+    {
+        foreach ($this->entityMetadata->getFieldNames() as $fieldName) {
+        
+            $value = null;
+            if (isset($item[$fieldName])) {
+                $value = $item[$fieldName];
+            } elseif (method_exists($item, 'get' . ucfirst($fieldName))) {
+                $value = $item->{'get' . ucfirst($fieldName)};
+            }
+        
+            if (!$value) {
+                return false;
+            }
+        
+            if (!($value instanceof \DateTime)
+                    || $value != $this->entityMetadata->getFieldValue(
+                            $entity, $fieldName
+                    ))
+            {
+                $setter = 'set' . ucfirst($fieldName);
+                if (method_exists($entity, $setter)) {
+                    $entity->$setter($value);
+                }
+            }
+            
+            return true;
         }
     }
 
