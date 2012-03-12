@@ -194,7 +194,7 @@ class DoctrineWriter extends AbstractWriter
             }
         
             if (!$value) {
-                return;
+                continue;
             }
         
             if (!($value instanceof \DateTime)
