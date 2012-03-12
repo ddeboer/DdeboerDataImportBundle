@@ -173,10 +173,7 @@ class DoctrineWriter extends AbstractWriter
             $entity = new $className;
         }
 
-        if ($this->updateItem($entity, $item) === false) {
-            continue;
-        }
-
+        $this->updateItem($entity, $item);
         $this->entityManager->persist($entity);
 
         if (($this->counter % $this->batchSize) == 0) {
@@ -197,7 +194,7 @@ class DoctrineWriter extends AbstractWriter
             }
         
             if (!$value) {
-                return false;
+                return;
             }
         
             if (!($value instanceof \DateTime)
@@ -210,8 +207,6 @@ class DoctrineWriter extends AbstractWriter
                     $entity->$setter($value);
                 }
             }
-            
-            return true;
         }
     }
 
