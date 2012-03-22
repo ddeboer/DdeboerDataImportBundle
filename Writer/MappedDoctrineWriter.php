@@ -37,13 +37,20 @@ class MappedDoctrineWriter extends DoctrineWriter
                             $children = $element->children(self::DDEBOER_NAMESPACE_URI);
                             if (count($children) == 1 && $this->_isAttributeSet($children[0], 'name')) {
                                 $field = $this->_getAttribute($children[0], 'name');
-                                $this->mapping[$this->_getAttribute($element, 'name')] = $field;
+                                $key = $this->_getAttribute($element, 'name');
+                                $this->mapping[$key] = $field;
+                                $this->parseMapping($children[0], $field);
                             }
                         }
                     }
                 }
             }
         }
+    }
+    
+    protected function parseMapping(\SimpleXMLElement $field, $name)
+    {
+        
     }
     
     protected function updateItem($entity, $item)
