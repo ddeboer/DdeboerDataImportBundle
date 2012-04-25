@@ -4,7 +4,7 @@ namespace Ddeboer\DataImportBundle\Reader;
 use Doctrine\DBAL\Connection;
 use Ddeboer\DataImportBundle\Reader;
 
-abstract class DbalReader implements Reader
+class DbalReader implements Reader
 {
     protected $connection;
     protected $schemaManager;
@@ -19,7 +19,10 @@ abstract class DbalReader implements Reader
         $this->loadData();
     }
     
-    abstract function loadData();
+    protected function loadData()
+    {
+        $this->data = $this->connection->fetchAll('SELECT * FROM ' . $this->table);    
+    }
 
     public function getFields()
     {
