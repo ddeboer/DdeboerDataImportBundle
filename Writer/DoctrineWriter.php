@@ -186,7 +186,7 @@ class DoctrineWriter extends AbstractWriter
 
         if (!$entity) {
             $className = $this->entityMetadata->getName();
-            $entity = new $className;
+            $entity = $this->getNewInstance($className, $item);
         }
 
         foreach ($this->entityMetadata->getFieldNames() as $fieldName) {
