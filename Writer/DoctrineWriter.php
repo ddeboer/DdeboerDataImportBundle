@@ -142,6 +142,13 @@ class DoctrineWriter extends AbstractWriter
         
         return new $className;
     }
+    
+    protected function setValue($entity, $value, $setter) 
+    {
+        if (method_exists($entity, $setter)) {
+            $entity->$setter($value);
+        }
+    }
 
     /**
      * Re-enable Doctrine logging
@@ -201,9 +208,7 @@ class DoctrineWriter extends AbstractWriter
                 ))
             {
                 $setter = 'set' . ucfirst($fieldName);
-                if (method_exists($entity, $setter)) {
-                    $entity->$setter($value);
-                }            
+                $this->setValue($entity, $value, $setter);
             }
         }
 
