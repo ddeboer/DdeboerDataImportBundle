@@ -133,6 +133,15 @@ class DoctrineWriter extends AbstractWriter
 
         return $this;
     }
+    
+    protected function getNewInstance($className, array $item)
+    {
+        if (class_exists($className) === false) {
+            throw new \Exception('Unable to create new instance of ' . $className);    
+        }
+        
+        return new $className;
+    }
 
     /**
      * Re-enable Doctrine logging
@@ -170,7 +179,7 @@ class DoctrineWriter extends AbstractWriter
 
         if (!$entity) {
             $className = $this->entityMetadata->getName();
-            $entity = new $className;
+            $entity = $this->getNewInstance($className, $item);
         }
 
         foreach ($this->entityMetadata->getFieldNames() as $fieldName) {
