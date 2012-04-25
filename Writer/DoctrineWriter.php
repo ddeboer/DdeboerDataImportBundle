@@ -212,12 +212,18 @@ class DoctrineWriter extends AbstractWriter
             }
         }
 
+        $this->prePersist($entity, $item);
         $this->entityManager->persist($entity);
 
         if (($this->counter % $this->batchSize) == 0) {
             $this->entityManager->flush();
             $this->entityManager->clear();
         }
+    }
+    
+    protected function prePersist($entity, array $item)
+    {
+        
     }
 
     /**
