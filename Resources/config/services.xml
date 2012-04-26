@@ -10,6 +10,12 @@
                  abstract="true">
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
+        
+        <service id="ddeboer_data_import.reader.doctrine_dbal" 
+                 class="Ddeboer\DataImportBundle\Reader\DbalReader"
+                 abstract="true">
+            <argument type="service" id="database_connection" />
+        </service>
 
         <service id="ddeboer_data_import.writer.doctrine"
                  class="Ddeboer\DataImportBundle\Writer\DoctrineWriter"

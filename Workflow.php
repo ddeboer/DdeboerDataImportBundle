@@ -211,6 +211,12 @@ class Workflow
                 }
             }
         }
+        
+        foreach ($this->writers as $writer) {
+            if ($writer instanceof Writer) {
+                $writer->finish();
+            }
+        }
     }
 
     /**

@@ -133,6 +133,22 @@ class DoctrineWriter extends AbstractWriter
 
         return $this;
     }
+    
+    protected function getNewInstance($className, array $item)
+    {
+        if (class_exists($className) === false) {
+            throw new \Exception('Unable to create new instance of ' . $className);    
+        }
+        
+        return new $className;
+    }
+    
+    protected function setValue($entity, $value, $setter) 
+    {
+        if (method_exists($entity, $setter)) {
+            $entity->$setter($value);
+        }
+    }
 
     /**
      * Re-enable Doctrine logging
@@ -170,7 +186,7 @@ class DoctrineWriter extends AbstractWriter
 
         if (!$entity) {
             $className = $this->entityMetadata->getName();
-            $entity = new $className;
+            $entity = $this->getNewInstance($className, $item);
         }
 
         foreach ($this->entityMetadata->getFieldNames() as $fieldName) {
@@ -192,18 +208,28 @@ class DoctrineWriter extends AbstractWriter
                 ))
             {
                 $setter = 'set' . ucfirst($fieldName);
-                if (method_exists($entity, $setter)) {
-                    $entity->$setter($value);
-                }            
+                $this->setValue($entity, $value, $setter);
             }
         }
 
+        $this->prePersist($entity, $item);
         $this->entityManager->persist($entity);
+        $this->postPersist($entity, $item);
 
         if (($this->counter % $this->batchSize) == 0) {
             $this->entityManager->flush();
             $this->entityManager->clear();
         }
+    }
+    
+    protected function prePersist($entity, array $item)
+    {
+        
+    }
+    
+    protected function postPersist($entity, array $item)
+    {
+    
     }
 
     /**
