@@ -214,6 +214,7 @@ class DoctrineWriter extends AbstractWriter
 
         $this->prePersist($entity, $item);
         $this->entityManager->persist($entity);
+        $this->postPersist($entity, $item);
 
         if (($this->counter % $this->batchSize) == 0) {
             $this->entityManager->flush();
@@ -224,6 +225,11 @@ class DoctrineWriter extends AbstractWriter
     protected function prePersist($entity, array $item)
     {
         
+    }
+    
+    protected function postPersist($entity, array $item)
+    {
+    
     }
 
     /**
