@@ -244,6 +244,13 @@ class Workflow
             $count++;
         }
 
+        // Finish writers
+        foreach ($this->writers as $writer) {
+            if ($writer instanceof Writer) {
+                $writer->finish();
+            }
+        }
+
         return $count;
     }
 
