@@ -202,9 +202,13 @@ class Workflow
      * 4. If the filter succeeds, convert the item’s values using the added
      *    converters.
      * 5. Write the item to each of the writers.
+     *
+     * @return int Number of items processed
      */
     public function process()
     {
+        $count = 0;
+
         // Prepare writers
         foreach ($this->writers as $writer) {
             if ($writer instanceof Writer) {
@@ -236,7 +240,11 @@ class Workflow
                     $writer($mappedItem, $item);
                 }
             }
+
+            $count++;
         }
+
+        return $count;
     }
 
     /**
