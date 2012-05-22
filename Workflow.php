@@ -67,17 +67,27 @@ class Workflow
      * A filter decides whether an item is accepted into the import process.
      *
      * @param Filter $filter
+     *
      * @return Workflow
      */
     public function addFilter(Filter $filter)
     {
         $this->filters[] = $filter;
+
         return $this;
     }
 
+    /**
+     * Add after conversion filter
+     *
+     * @param Filter $filter
+     *
+     * @return $this
+     */
     public function addFilterAfterConversion(Filter $filter)
     {
         $this->afterConversionFilters[] = $filter;
+
         return $this;
     }
 
@@ -85,10 +95,15 @@ class Workflow
      * Add a filter closure to the workflow
      *
      * A filter decides whether an item is accepted into the import process.
+     *
+     * @param \Closure $closure
+     *
+     * @return $this
      */
     public function addFilterClosure(\Closure $closure)
     {
         $this->filters[] = $closure;
+
         return $this;
     }
 
@@ -97,51 +112,59 @@ class Workflow
      *
      * A writer takes a filtered and converted item, and writes that to, e.g.,
      * a database or CSV file.
-     * 
+     *
      * @param Writer $writer
-     * @return Workflow
+     *
+     * @return $this
      */
     public function addWriter(Writer $writer)
     {
         $this->writers[] = $writer;
+
         return $this;
     }
 
     /**
      * Add a writer closure to the workflow
-     * 
+     *
      * @param \Closure $closure
+     *
      * @return Workflow
      */
     public function addWriterClosure(\Closure $closure)
     {
         $this->writers[] = $closure;
+
         return $this;
     }
 
     /**
      * Add a converter to the workflow
      *
-     * @param string $field
-     * @param type $converter
-     * @return Workflow
+     * @param string $field     Field
+     * @param type   $converter Converter
+     *
+     * @return $this
      */
     public function addConverter($field, Converter $converter)
     {
         $this->converters[$field][] = $converter;
+
         return $this;
     }
 
     /**
      * Add a converter closure to the workflow
      *
-     * @param string $field
-     * @param \Closure $closure
+     * @param string   $field   Field
+     * @param \Closure $closure Closure
+     *
      * @return Workflow
      */
     public function addConverterClosure($field, \Closure $closure)
     {
         $this->converters[$field][] = $closure;
+
         return $this;
     }
 
@@ -151,9 +174,11 @@ class Workflow
      * If we can get the field names from the reader, they are just to check the
      * $fromField against.
      *
-     * @param string $fromField
-     * @param string $toField
-     * @return Workflow
+     * @param string $fromField Field to map from
+     * @param string $toField   Field to map to
+     *
+     * @return $this
+     * @throws \InvalidArgumentException
      */
     public function addMapping($fromField, $toField)
     {
@@ -164,6 +189,7 @@ class Workflow
         }
 
         $this->mappings[$fromField] = $toField;
+
         return $this;
     }
 
@@ -217,7 +243,9 @@ class Workflow
      * Apply the filter chain to the input; if at least one filter fails, the
      * chain fails
      *
-     * @param array $item
+     * @param array $item    Item
+     * @param array $filters Array of filters
+     *
      * @return boolean
      */
     protected function filterItem(array $item, array $filters)
@@ -231,7 +259,7 @@ class Workflow
                 if (false == $filter($item)) {
                     return false;
                 }
-            } 
+            }
         }
 
         // Return true if no filters failed
@@ -240,9 +268,10 @@ class Workflow
 
     /**
      * Convert the item
-     * 
-     * @param string $item
-     * @return array
+     *
+     * @param string $item Original item values
+     *
+     * @return array Converted item values
      */
     protected function convertItem(array $item)
     {
@@ -257,13 +286,15 @@ class Workflow
                 }
             }
         }
+
         return $item;
     }
 
     /**
      * Map an item
-     * 
-     * @param array $item
+     *
+     * @param array $item Item values
+     *
      * @return array
      */
     protected function mapItem(array $item)
@@ -274,6 +305,7 @@ class Workflow
                 unset($item[$key]);
             }
         }
+
         return $item;
     }
 }
