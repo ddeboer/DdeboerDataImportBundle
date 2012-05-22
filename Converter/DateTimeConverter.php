@@ -21,7 +21,7 @@ class DateTimeConverter implements Converter
     /**
      * Construct a DateTime converter
      *
-     * @param string $format    Optional
+     * @param string $format Optional
      */
     public function __construct($format = null)
     {
@@ -32,6 +32,7 @@ class DateTimeConverter implements Converter
      * Convert string to date time object
      *
      * @param string $input
+     *
      * @return \DateTime
      */
     public function convert($input)
@@ -46,8 +47,10 @@ class DateTimeConverter implements Converter
                 throw new \UnexpectedValueException(
                     $input . ' is not a valid date/time according to format ' . $this->format);
             }
+
             return $date;
         }
+
         return new \DateTime($input);
     }
 }
