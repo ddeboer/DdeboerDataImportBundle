@@ -11,17 +11,18 @@ class CsvWriter extends AbstractWriter
     private $delimiter = ';';
     private $enclosure = '"';
 
+    /**
+     * Constructor
+     *
+     * @param \SplFileObject $file CSV file
+     */
     public function __construct(\SplFileObject $file)
     {
         $this->fp = fopen($file->getPathname(), 'w');
     }
 
     /**
-     * Write a row to the CSV file
-     *
-     * Every cell value is encoded in an Excel-compatible way
-     *
-     * @param array $cells    Array of column values or header names
+     * {@inheritdoc}
      */
     public function writeItem(array $item, array $originalItem = array())
     {
@@ -31,7 +32,10 @@ class CsvWriter extends AbstractWriter
         fputcsv($this->fp, $item, $this->delimiter, $this->enclosure);
     }
 
-    public function __destruct()
+    /**
+     * {@inheritdoc}
+     */
+    public function finish()
     {
         fclose($this->fp);
     }
