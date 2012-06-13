@@ -229,7 +229,7 @@ class Workflow
 
             // Apply filters after conversion
             $convertedItem = $this->filterItem($convertedItem, $this->afterConversionFilters);
-            if (!is_array($convertedItem) {
+            if (!is_array($convertedItem)) {
                 continue;
             }
 
