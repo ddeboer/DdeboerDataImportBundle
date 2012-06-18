@@ -220,14 +220,16 @@ class Workflow
         foreach ($this->reader as $item) {
 
             // Apply filters before conversion
-            if (!$this->filterItem($item, $this->filters)) {
+            $item = $this->filterItem($item, $this->filters);
+            if (!is_array($item)) {
                 continue;
             }
 
             $convertedItem = $this->convertItem($item);
 
             // Apply filters after conversion
-            if (!$this->filterItem($convertedItem, $this->afterConversionFilters)) {
+            $convertedItem = $this->filterItem($convertedItem, $this->afterConversionFilters);
+            if (!is_array($convertedItem)) {
                 continue;
             }
 
@@ -266,19 +268,21 @@ class Workflow
     protected function filterItem(array $item, array $filters)
     {
         foreach ($filters as $filter) {
+            $result = null;
             if ($filter instanceof Filter) {
-                if (false == $filter->filter($item)) {
-                    return false;
-                }
-            } elseif (is_callable($filter)) {
-                if (false == $filter($item)) {
-                    return false;
-                }
+                $result = $filter->filter($item);
+            } else if (is_callable($filter)) {
+                $result = $filter($item);
+            }
+            if (false === $result) {
+                return false;
+            } else if (is_array($result)){
+                $item = $result;
             }
         }
 
-        // Return true if no filters failed
-        return true;
+        // Return the item if no filters failed
+        return $item;
     }
 
     /**
