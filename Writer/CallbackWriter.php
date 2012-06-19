@@ -5,6 +5,8 @@ namespace Ddeboer\DataImportBundle\Writer;
 use Ddeboer\DataImportBundle\Writer;
 
 /**
+ * Writes using a callback or closure
+ *
  * @author Markus Bachmann <markus.bachmann@bachi.biz>
  */
 class CallbackWriter implements Writer
@@ -42,6 +44,7 @@ class CallbackWriter implements Writer
     public function writeItem(array $item, array $originalItem = array())
     {
         call_user_func($this->callback, $item, $originalItem);
+
         return $this;
     }
 
@@ -52,5 +55,4 @@ class CallbackWriter implements Writer
     {
         return $this;
     }
-
 }

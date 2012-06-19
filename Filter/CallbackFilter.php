@@ -5,6 +5,8 @@ namespace Ddeboer\DataImportBundle\Filter;
 use Ddeboer\DataImportBundle\Filter;
 
 /**
+ * Filters using a callback
+ *
  * @author Markus Bachmann <markus.bachmann@bachi.biz>
  */
 class CallbackFilter implements Filter

@@ -5,6 +5,8 @@ namespace Ddeboer\DataImportBundle\Converter;
 use Ddeboer\DataImportBundle\Converter;
 
 /**
+ * Converts item values using a callback
+ *
  * @author Markus Bachmann <markus.bachmann@bachi.biz>
  */
 class CallbackConverter implements Converter
@@ -35,6 +37,4 @@ class CallbackConverter implements Converter
     {
         return call_user_func($this->callback, $input);
     }
-
-
 }
