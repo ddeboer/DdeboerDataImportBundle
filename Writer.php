@@ -15,7 +15,7 @@ interface Writer
      * @return Writer
      */
     function prepare();
-    
+
     /**
      * Write one data item
      *
@@ -25,7 +25,7 @@ interface Writer
      * @return Writer
      */
     function writeItem(array $item, array $originalItem = array());
-    
+
     /**
      * Wrap up the writer after all items have been written
      *

@@ -10,10 +10,9 @@ use Ddeboer\DataImportBundle\Source;
  *
  * PHPExcel must be installed.
  *
- * @link http://phpexcel.codeplex.com/
- * @link https://github.com/logiQ/PHPExcel
- *
  * @author David de Boer <david@ddeboer.nl>
+ * @link   http://phpexcel.codeplex.com/
+ * @link   https://github.com/logiQ/PHPExcel
  */
 class ExcelReader implements Reader
 {
@@ -24,10 +23,10 @@ class ExcelReader implements Reader
     /**
      * Construct CSV reader
      *
-     * @param Source | \SplFileObject   The source: can be either a source or
-     *                                  file object
-     * @param int $headerRowNumber      Optional number of header row
-     *
+     * @param Source|\SplFileObject $source          The source: can be either a
+     *                                               source or file object
+     * @param int                   $headerRowNumber Optional number of header
+     *                                               row
      */
     public function __construct($source, $headerRowNumber = null)
     {
@@ -82,11 +81,13 @@ class ExcelReader implements Reader
      * Set column headers
      *
      * @param array $columnHeaders
-     * @return CsvReader
+     *
+     * @return $this
      */
     public function setColumnHeaders(array $columnHeaders)
     {
         $this->columnHeaders = $columnHeaders;
+
         return $this;
     }
 
@@ -111,12 +112,14 @@ class ExcelReader implements Reader
      * Set header row number
      *
      * @param int $rowNumber Number of the row that contains column header names
-     * @return CsvReader
+     *
+     * @return $this
      */
     public function setHeaderRowNumber($rowNumber)
     {
         $this->headerRowNumber = $rowNumber;
         $this->columnHeaders = $this->worksheet[$rowNumber];
+
         return $this;
     }
 
@@ -141,29 +144,45 @@ class ExcelReader implements Reader
         foreach ($this as $row) {
             $rows++;
         }
+
         return $rows;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function next()
     {
         $this->pointer++;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function valid()
     {
          return isset($this->worksheet[$this->pointer]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function key()
     {
         return $this->pointer;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function seek($pointer)
     {
         $this->pointer = $pointer;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getFields()
     {
         return $this->columnHeaders;
@@ -172,12 +191,14 @@ class ExcelReader implements Reader
     /**
      * Get a row
      *
-     * @param int $number   Row number
+     * @param int $number Row number
+     *
      * @return array
      */
     public function getRow($number)
     {
         $this->seek($number);
+
         return $this->current();
     }
 }
