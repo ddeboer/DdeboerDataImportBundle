@@ -2,6 +2,10 @@
 
 namespace Ddeboer\DataImportBundle;
 
+use Ddeboer\DataImportBundle\Filter\CallbackFilter;
+use Ddeboer\DataImportBundle\Writer\CallbackWriter;
+use Ddeboer\DataImportBundle\Converter\CallbackConverter;
+
 /**
  * A mediator between a reader and one or more writers and converters
  *
@@ -102,7 +106,7 @@ class Workflow
      */
     public function addFilterClosure(\Closure $closure)
     {
-        $this->filters[] = $closure;
+        $this->filters[] = new CallbackFilter($closure);
 
         return $this;
     }
@@ -133,7 +137,7 @@ class Workflow
      */
     public function addWriterClosure(\Closure $closure)
     {
-        $this->writers[] = $closure;
+        $this->writers[] = new CallbackWriter($closure);
 
         return $this;
     }
@@ -163,7 +167,7 @@ class Workflow
      */
     public function addConverterClosure($field, \Closure $closure)
     {
-        $this->converters[$field][] = $closure;
+        $this->converters[$field][] = new CallbackConverter($closure);
 
         return $this;
     }
@@ -234,11 +238,7 @@ class Workflow
             $mappedItem = $this->mapItem($convertedItem);
 
             foreach ($this->writers as $writer) {
-                if ($writer instanceof Writer) {
-                    $writer->writeItem($mappedItem, $item);
-                } else {
-                    $writer($mappedItem, $item);
-                }
+                $writer->writeItem($mappedItem, $item);
             }
 
             $count++;
@@ -266,14 +266,8 @@ class Workflow
     protected function filterItem(array $item, array $filters)
     {
         foreach ($filters as $filter) {
-            if ($filter instanceof Filter) {
-                if (false == $filter->filter($item)) {
-                    return false;
-                }
-            } elseif (is_callable($filter)) {
-                if (false == $filter($item)) {
-                    return false;
-                }
+            if (false == $filter->filter($item)) {
+                return false;
             }
         }
 
@@ -293,11 +287,7 @@ class Workflow
         foreach ($this->converters as $property => $converters) {
             if (isset($item[$property])) {
                 foreach ($converters as $converter) {
-                    if ($converter instanceof Converter) {
-                        $item[$property] = $converter->convert($item[$property]);
-                    } else {
-                        $item[$property] = $converter($item[$property]);
-                    }
+                    $item[$property] = $converter->convert($item[$property]);
                 }
             }
         }
