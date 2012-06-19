@@ -6,36 +6,26 @@ Ddeboer Data Import Bundle
 Introduction
 ------------
 This Symfony2 bundle offers a way to import data from, and store data to, a
-range of formats and media.
+range of formats and media. During import, you can filter and convert all data.
 
 Installation
 ------------
 
-1. Add the following to your `deps` file:
+This library is available on [Packagist](http://packagist.org/packages/ddeboer/data-import-bundle).
+
+To install it, add the following to your `composer.json`:
 
 ```
-[DdeboerDataImportBundle]
-    git=https://github.com/ddeboer/DdeboerDataImportBundle
-    target=/bundles/Ddeboer/DataImportBundle
-```
-
-And run the vendors script from your project’s directory:
-
-```
-bin/vendors install
-```
-
-2. Add the Ddeboer namespace `app/autoload.php`:
-
-```
-$loader->registerNamespace(array(
+"require": {
     ...
-    'Ddeboer'   => __DIR__.'/../vendor/bundles',
+    "ddeboer/data-import-bundle": "dev-master",
     ...
-));
+}
 ```
 
-3. Add the bundle to `app/AppKernel.php`:
+And run `$ php composer.phar install`.
+
+Then add the bundle to `app/AppKernel.php`:
 
 ```
 public function registerBundles()
