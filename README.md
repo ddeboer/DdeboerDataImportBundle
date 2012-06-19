@@ -55,7 +55,7 @@ Usage
    object to retrieve this `splFileObject`: construct a source and add `source
    filters`, if you like.
 2. Construct a `reader` object and pass an `splFileObject` to it.
-3. Construct a `workflow` object and pass the reader to it. Add at least one 
+3. Construct a `workflow` object and pass the reader to it. Add at least one
    `writer` object to this workflow. You can also add `filters` and `converters`
    to the workflow.
 4. Process the workflow: this will read the data from the reader, filter and
@@ -64,10 +64,10 @@ Usage
 An example:
 
 ```
+use Ddeboer\DataImportBundle\Workflow;
 use Ddeboer\DataImportBundle\Source\Http;
 use Ddeboer\DataImportBundle\Source\Filter\Unzip;
 use Ddeboer\DataImportBundle\Reader\CsvReader;
-use Ddeboer\DataImportBundle\Workflow;
 use Ddeboer\DataImportBundle\Converter\DateTimeConverter;
 
 (...)
@@ -90,22 +90,32 @@ $workflow = new Workflow($csvReader);
 $dateTimeConverter = new DateTimeConverter();
 
 // Add converters to the workflow
-$workflow->addConverter('twn_datumbeschikking', $dateTimeConverter)
-         ->addConverter('twn_datumeind', $dateTimeConverter)
-         ->addConverter('datummutatie', $dateTimeConverter)
+$workflow
+    ->addConverter('twn_datumbeschikking', $dateTimeConverter)
+    ->addConverter('twn_datumeind', $dateTimeConverter)
+    ->addConverter('datummutatie', $dateTimeConverter)
 
 // You can also add closures as converters
-         ->addConverterClosure('twn_nummertm', function($input) {
-             return str_replace('-', '', $input);
-         })
-         ->addConverterClosure('twn_nummervan', function($input) {
-             return str_replace('-', '', $input);
-         })
+    ->addConverter('twn_nummertm',
+        new \Ddeboer\DataImportBundle\Converter\CallbackConverter(
+            function($input) {
+                return str_replace('-', '', $input);
+            }
+        )
+    ->addConverter('twn_nummervan',
+        new \Ddeboer\DataImportBundle\Converter\CallbackConverter(
+            function($input) {
+                return str_replace('-', '', $input);
+            }
+        )
 
-// For now, no writers are supplied yet, so implement your own or use a closure
-        ->addWriterClosure(function($csvLine) {
+// Use one of the writers supplied with this bundle, implement your own, or use
+// a closure:
+    ->addWriter(new \Ddeboer\DataImportBundle\Writer\CallbackWriter(
+        function($csvLine) {
             var_dump($csvLine);
-        });
+        }
+    );
 
 // Process the workflow
 $workflow->process();

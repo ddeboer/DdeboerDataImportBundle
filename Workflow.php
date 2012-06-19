@@ -96,22 +96,6 @@ class Workflow
     }
 
     /**
-     * Add a filter closure to the workflow
-     *
-     * A filter decides whether an item is accepted into the import process.
-     *
-     * @param \Closure $closure
-     *
-     * @return $this
-     */
-    public function addFilterClosure(\Closure $closure)
-    {
-        $this->filters[] = new CallbackFilter($closure);
-
-        return $this;
-    }
-
-    /**
      * Add a writer to the workflow
      *
      * A writer takes a filtered and converted item, and writes that to, e.g.,
@@ -129,20 +113,6 @@ class Workflow
     }
 
     /**
-     * Add a writer closure to the workflow
-     *
-     * @param \Closure $closure
-     *
-     * @return Workflow
-     */
-    public function addWriterClosure(\Closure $closure)
-    {
-        $this->writers[] = new CallbackWriter($closure);
-
-        return $this;
-    }
-
-    /**
      * Add a converter to the workflow
      *
      * @param string $field     Field
@@ -153,21 +123,6 @@ class Workflow
     public function addConverter($field, Converter $converter)
     {
         $this->converters[$field][] = $converter;
-
-        return $this;
-    }
-
-    /**
-     * Add a converter closure to the workflow
-     *
-     * @param string   $field   Field
-     * @param \Closure $closure Closure
-     *
-     * @return Workflow
-     */
-    public function addConverterClosure($field, \Closure $closure)
-    {
-        $this->converters[$field][] = new CallbackConverter($closure);
 
         return $this;
     }
