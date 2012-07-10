@@ -1,15 +1,15 @@
 <?php
 
-namespace Ddeboer\DataImportBundle\Converter;
+namespace Ddeboer\DataImportBundle\ItemConverter;
 
-use Ddeboer\DataImportBundle\Converter;
+use Ddeboer\DataImportBundle\ItemConverter;
 
 /**
- * Converts item values using a callback
+ * Converts items using a callback
  *
- * @author Markus Bachmann <markus.bachmann@bachi.biz>
+ * @author Miguel Ibero <miguel@ibero.me>
  */
-class CallbackConverter implements Converter
+class CallbackItemConverter implements ItemConverter
 {
     /**
      * @var callable
@@ -33,7 +33,7 @@ class CallbackConverter implements Converter
     /**
      * {@inheritDoc}
      */
-    public function convert($input)
+    public function convert(array $input)
     {
         return call_user_func($this->callback, $input);
     }

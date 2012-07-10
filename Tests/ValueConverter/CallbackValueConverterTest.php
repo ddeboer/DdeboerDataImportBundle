@@ -1,13 +1,13 @@
 <?php
 
-namespace Ddeboer\DataImportBundle\Tests\Converter;
+namespace Ddeboer\DataImportBundle\Tests\ValueConverter;
 
-use Ddeboer\DataImportBundle\Converter\CallbackConverter;
+use Ddeboer\DataImportBundle\ValueConverter\CallbackValueConverter;
 
 /**
  * @author Markus Bachmann <markus.bachmann@bachi.biz>
  */
-class CallbackConverterTest extends \PHPUnit_Framework_TestCase
+class CallbackValueConverterTest extends \PHPUnit_Framework_TestCase
 {
     public function testConvert()
     {
@@ -15,7 +15,7 @@ class CallbackConverterTest extends \PHPUnit_Framework_TestCase
             return implode(',', $item);
         };
 
-        $converter = new CallbackConverter($callable);
+        $converter = new CallbackValueConverter($callable);
         $this->assertEquals('foo,bar', $converter->convert(array('foo', 'bar')));
     }
 }
