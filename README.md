@@ -58,7 +58,7 @@ use Ddeboer\DataImportBundle\Workflow;
 use Ddeboer\DataImportBundle\Source\Http;
 use Ddeboer\DataImportBundle\Source\Filter\Unzip;
 use Ddeboer\DataImportBundle\Reader\CsvReader;
-use Ddeboer\DataImportBundle\Converter\DateTimeConverter;
+use Ddeboer\DataImportBundle\ValueConverter\DateTimeValueConverter;
 
 (...)
 
@@ -77,23 +77,23 @@ $csvReader->setHeaderRowNumber(0);
 
 // Create the workflow
 $workflow = new Workflow($csvReader);
-$dateTimeConverter = new DateTimeConverter();
+$dateTimeConverter = new DateTimeValueConverter();
 
 // Add converters to the workflow
 $workflow
-    ->addConverter('twn_datumbeschikking', $dateTimeConverter)
-    ->addConverter('twn_datumeind', $dateTimeConverter)
-    ->addConverter('datummutatie', $dateTimeConverter)
+    ->addValueConverter('twn_datumbeschikking', $dateTimeConverter)
+    ->addValueConverter('twn_datumeind', $dateTimeConverter)
+    ->addValueConverter('datummutatie', $dateTimeConverter)
 
 // You can also add closures as converters
-    ->addConverter('twn_nummertm',
-        new \Ddeboer\DataImportBundle\Converter\CallbackConverter(
+    ->addValueConverter('twn_nummertm',
+        new \Ddeboer\DataImportBundle\ValueConverter\CallbackValueConverter(
             function($input) {
                 return str_replace('-', '', $input);
             }
         )
-    ->addConverter('twn_nummervan',
-        new \Ddeboer\DataImportBundle\Converter\CallbackConverter(
+    ->addValueConverter('twn_nummervan',
+        new \Ddeboer\DataImportBundle\ValueConverter\CallbackValueConverter(
             function($input) {
                 return str_replace('-', '', $input);
             }
