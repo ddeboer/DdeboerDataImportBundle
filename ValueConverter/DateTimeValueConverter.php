@@ -1,14 +1,14 @@
 <?php
 
-namespace Ddeboer\DataImportBundle\Converter;
+namespace Ddeboer\DataImportBundle\ValueConverter;
 
-use Ddeboer\DataImportBundle\Converter;
+use Ddeboer\DataImportBundle\ValueConverter;
 
 /**
  * Convert an input value to a PHP \DateTime object
  *
  */
-class DateTimeConverter implements Converter
+class DateTimeValueConverter implements ValueConverter
 {
     /**
      * Date time format
