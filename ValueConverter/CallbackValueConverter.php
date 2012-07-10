@@ -24,7 +24,7 @@ class CallbackValueConverter implements ValueConverter
     public function __construct($callback)
     {
         if (!is_callable($callback)) {
-            throw new \RuntimeException('$callback must be callable');
+            throw new \RuntimeException("$callback must be callable");
         }
 
         $this->callback = $callback;
