@@ -1,15 +1,15 @@
 <?php
 
-namespace Ddeboer\DataImportBundle\Tests\Converter;
+namespace Ddeboer\DataImportBundle\Tests\ValueConverter;
 
-use Ddeboer\DataImportBundle\Converter\DateTimeConverter;
+use Ddeboer\DataImportBundle\ValueConverter\DateTimeValueConverter;
 
-class DateTimeConverterTest extends \PHPUnit_Framework_TestCase
+class DateTimeValueConverterTest extends \PHPUnit_Framework_TestCase
 {
     public function testConvertWithoutFormat()
     {
         $value = '2011-10-20 13:05';
-        $converter = new DateTimeConverter;
+        $converter = new DateTimeValueConverter;
         $output = $converter->convert($value);
         $this->assertInstanceOf('\DateTime', $output);
         $this->assertEquals('13', $output->format('H'));
@@ -18,7 +18,7 @@ class DateTimeConverterTest extends \PHPUnit_Framework_TestCase
     public function testConvertWithFormat()
     {
         $value = '14/10/2008 09:40:20';
-        $converter = new DateTimeConverter('d/m/Y H:i:s');
+        $converter = new DateTimeValueConverter('d/m/Y H:i:s');
         $output = $converter->convert($value);
         $this->assertInstanceOf('\DateTime', $output);
         $this->assertEquals('20', $output->format('s'));

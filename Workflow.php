@@ -28,11 +28,18 @@ class Workflow
     protected $writers = array();
 
     /**
-     * Array of converters
+     * Array of value converters
      *
-     * @var Converter[]
+     * @var ValueConverter[]
      */
-    protected $converters = array();
+    protected $valueConverters = array();
+
+    /**
+     * Array of item converters
+     *
+     * @var ValueConverter[]
+     */
+    protected $itemConverters = array();
 
     /**
      * Array of filters
@@ -113,16 +120,31 @@ class Workflow
     }
 
     /**
-     * Add a converter to the workflow
+     * Add a value converter to the workflow
      *
      * @param string $field     Field
-     * @param type   $converter Converter
+     * @param type   $converter ValueConverter
      *
      * @return $this
      */
-    public function addConverter($field, Converter $converter)
+    public function addValueConverter($field, ValueConverter $converter)
     {
-        $this->converters[$field][] = $converter;
+        $this->valueConverters[$field][] = $converter;
+
+        return $this;
+    }
+
+    /**
+     * Add an item converter to the workflow
+     *
+     * @param string $field     Field
+     * @param type   $converter ItemConverter
+     *
+     * @return $this
+     */
+    public function addItemConverter(ItemConverter $converter)
+    {
+        $this->itemConverters[] = $converter;
 
         return $this;
     }
@@ -184,6 +206,9 @@ class Workflow
             }
 
             $convertedItem = $this->convertItem($item);
+            if (!$convertedItem) {
+                continue;
+            }
 
             // Apply filters after conversion
             if (!$this->filterItem($convertedItem, $this->afterConversionFilters)) {
@@ -239,7 +264,13 @@ class Workflow
      */
     protected function convertItem(array $item)
     {
-        foreach ($this->converters as $property => $converters) {
+        foreach ($this->itemConverters as $converter) {
+            $item = $converter->convert($item);
+            if (!$item) {
+                return $item;
+            }
+        }
+        foreach ($this->valueConverters as $property => $converters) {
             if (isset($item[$property])) {
                 foreach ($converters as $converter) {
                     $item[$property] = $converter->convert($item[$property]);
