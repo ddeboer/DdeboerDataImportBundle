@@ -2,10 +2,6 @@
 
 namespace Ddeboer\DataImportBundle;
 
-use Ddeboer\DataImportBundle\Filter\CallbackFilter;
-use Ddeboer\DataImportBundle\Writer\CallbackWriter;
-use Ddeboer\DataImportBundle\Converter\CallbackConverter;
-
 /**
  * A mediator between a reader and one or more writers and converters
  *
