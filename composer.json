@@ -14,8 +14,12 @@
     "require": {
         "php": ">=5.3.0"
     },
+    "require-dev": {
+        "symfony/form": "2.*"
+    },
     "suggest": {
-        "phpexcel/phpexcel": "*"
+        "phpexcel/phpexcel": "If you want to use the ExcelReader",
+        "symfony/form": "If you want to use the ObjectConverter"
     },
     "autoload": {
         "psr-0": { "Ddeboer\\DataImportBundle": "" }
