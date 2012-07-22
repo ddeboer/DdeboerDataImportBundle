@@ -7,7 +7,7 @@ namespace Ddeboer\DataImportBundle;
  *
  * @author David de Boer <david@ddeboer.nl>
  */
-interface Writer
+interface WriterInterface
 {
     /**
      * Prepare the writer before writing the items

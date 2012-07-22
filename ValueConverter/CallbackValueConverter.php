@@ -2,14 +2,14 @@
 
 namespace Ddeboer\DataImportBundle\ValueConverter;
 
-use Ddeboer\DataImportBundle\ValueConverter;
+use Ddeboer\DataImportBundle\ValueConverterInterface;
 
 /**
  * Converts item values using a callback
  *
  * @author Markus Bachmann <markus.bachmann@bachi.biz>
  */
-class CallbackValueConverter implements ValueConverter
+class CallbackValueConverter implements ValueConverterInterface
 {
     /**
      * @var callable

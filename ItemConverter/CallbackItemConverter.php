@@ -2,14 +2,14 @@
 
 namespace Ddeboer\DataImportBundle\ItemConverter;
 
-use Ddeboer\DataImportBundle\ItemConverter;
+use Ddeboer\DataImportBundle\ItemConverterInterface;
 
 /**
  * Converts items using a callback
  *
  * @author Miguel Ibero <miguel@ibero.me>
  */
-class CallbackItemConverter implements ItemConverter
+class CallbackItemConverter implements ItemConverterInterface
 {
     /**
      * @var callable

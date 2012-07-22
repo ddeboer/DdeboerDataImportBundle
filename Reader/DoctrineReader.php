@@ -2,12 +2,12 @@
 
 namespace Ddeboer\DataImportBundle\Reader;
 
-use Ddeboer\DataImportBundle\Reader;
+use Ddeboer\DataImportBundle\ReaderInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Internal\Hydration\IterableResult;
 use Doctrine\ORM\Query;
 
-class DoctrineReader implements Reader
+class DoctrineReader implements ReaderInterface
 {
     protected $objectManager;
     protected $objectName;
@@ -21,7 +21,7 @@ class DoctrineReader implements Reader
     {
         $this->objectManager = $objectManager;
         $this->objectName = $objectName;
-        
+
         $query = $this->objectManager->createQuery(
             sprintf('select o from %s o', $objectName)
         );

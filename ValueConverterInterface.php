@@ -10,7 +10,7 @@ namespace Ddeboer\DataImportBundle;
  *
  * @author David de Boer <david@ddeboer.nl>
  */
-interface ValueConverter
+interface ValueConverterInterface
 {
     /**
      * Convert a value

@@ -2,14 +2,14 @@
 
 namespace Ddeboer\DataImportBundle\Filter;
 
-use Ddeboer\DataImportBundle\Filter;
+use Ddeboer\DataImportBundle\FilterInterface;
 
 /**
  * Filters using a callback
  *
  * @author Markus Bachmann <markus.bachmann@bachi.biz>
  */
-class CallbackFilter implements Filter
+class CallbackFilter implements FilterInterface
 {
     /**
      * @var callable

@@ -63,7 +63,7 @@ class Workflow
      *
      * @param Reader $reader
      */
-    public function __construct(Reader $reader)
+    public function __construct(ReaderInterface $reader)
     {
         $this->reader = $reader;
     }
@@ -73,11 +73,11 @@ class Workflow
      *
      * A filter decides whether an item is accepted into the import process.
      *
-     * @param Filter $filter
+     * @param FilterInterface $filter
      *
      * @return Workflow
      */
-    public function addFilter(Filter $filter)
+    public function addFilter(FilterInterface $filter)
     {
         $this->filters[] = $filter;
 
@@ -87,11 +87,11 @@ class Workflow
     /**
      * Add after conversion filter
      *
-     * @param Filter $filter
+     * @param FilterInterface $filter
      *
      * @return $this
      */
-    public function addFilterAfterConversion(Filter $filter)
+    public function addFilterAfterConversion(FilterInterface $filter)
     {
         $this->afterConversionFilters[] = $filter;
 
@@ -104,11 +104,11 @@ class Workflow
      * A writer takes a filtered and converted item, and writes that to, e.g.,
      * a database or CSV file.
      *
-     * @param Writer $writer
+     * @param WriterInterface $writer
      *
      * @return $this
      */
-    public function addWriter(Writer $writer)
+    public function addWriter(WriterInterface $writer)
     {
         $this->writers[] = $writer;
 
@@ -118,12 +118,12 @@ class Workflow
     /**
      * Add a value converter to the workflow
      *
-     * @param string $field     Field
-     * @param type   $converter ValueConverter
+     * @param string                  $field     Field
+     * @param ValueConverterInterface $converter ValueConverter
      *
      * @return $this
      */
-    public function addValueConverter($field, ValueConverter $converter)
+    public function addValueConverter($field, ValueConverterInterface $converter)
     {
         $this->valueConverters[$field][] = $converter;
 
@@ -134,11 +134,11 @@ class Workflow
      * Add an item converter to the workflow
      *
      * @param string $field     Field
-     * @param type   $converter ItemConverter
+     * @param type   $converter ItemConverterInterface
      *
      * @return $this
      */
-    public function addItemConverter(ItemConverter $converter)
+    public function addItemConverter(ItemConverterInterface $converter)
     {
         $this->itemConverters[] = $converter;
 

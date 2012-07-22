@@ -2,14 +2,14 @@
 
 namespace Ddeboer\DataImportBundle\Writer;
 
-use Ddeboer\DataImportBundle\Writer;
+use Ddeboer\DataImportBundle\WriterInterface;
 
 /**
  * Writes using a callback or closure
  *
  * @author Markus Bachmann <markus.bachmann@bachi.biz>
  */
-class CallbackWriter implements Writer
+class CallbackWriter implements WriterInterface
 {
     /**
      * @var callable

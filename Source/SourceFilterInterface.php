@@ -7,7 +7,7 @@ namespace Ddeboer\DataImportBundle\Source;
  *
  * @author David de Boer <david@ddeboer.nl>
  */
-interface SourceFilter
+interface SourceFilterInterface
 {
     /**
      * Filter the source file

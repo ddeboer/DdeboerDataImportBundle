@@ -7,7 +7,7 @@ namespace Ddeboer\DataImportBundle;
  *
  * @author David de Boer <david@ddeboer.nl>
  */
-interface ItemConverter
+interface ItemConverterInterface
 {
     /**
      * Convert an input

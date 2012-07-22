@@ -2,8 +2,8 @@
 
 namespace Ddeboer\DataImportBundle\Reader;
 
-use Ddeboer\DataImportBundle\Reader;
-use Ddeboer\DataImportBundle\Source;
+use Ddeboer\DataImportBundle\ReaderInterface;
+use Ddeboer\DataImportBundle\SourceInterface;
 
 /**
  * Reads Excel files with the help of PHPExcel
@@ -14,7 +14,7 @@ use Ddeboer\DataImportBundle\Source;
  * @link   http://phpexcel.codeplex.com/
  * @link   https://github.com/logiQ/PHPExcel
  */
-class ExcelReader implements Reader
+class ExcelReader implements ReaderInterface
 {
     protected $worksheet;
     protected $headerRowNumber;

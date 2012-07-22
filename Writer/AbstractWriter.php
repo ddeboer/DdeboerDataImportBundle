@@ -2,14 +2,14 @@
 
 namespace Ddeboer\DataImportBundle\Writer;
 
-use Ddeboer\DataImportBundle\Writer;
+use Ddeboer\DataImportBundle\WriterInterface;
 
 /**
  * Persists data in a storage medium, such as a database, XML file, etc.
  *
  * @author David de Boer <david@ddeboer.nl>
  */
-abstract class AbstractWriter implements Writer
+abstract class AbstractWriter implements WriterInterface
 {
     /**
      * Prepare the writer before writing the items

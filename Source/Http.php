@@ -1,9 +1,10 @@
 <?php
 
 namespace Ddeboer\DataImportBundle\Source;
-use Ddeboer\DataImportBundle\Source;
 
-class Http implements Source
+use Ddeboer\DataImportBundle\SourceInterface;
+
+class Http implements SourceInterface
 {
     protected $filters = array();
     protected $username;
@@ -25,7 +26,7 @@ class Http implements Source
 
     /**
      *
-     * @return \SplFileObject 
+     * @return \SplFileObject
      */
     public function getFile()
     {
@@ -39,7 +40,7 @@ class Http implements Source
 
     /**
      * Download the file from the internet to a temporary location
-     * 
+     *
      * @return \SplFileObject
      */
     public function downloadFile($target = null)

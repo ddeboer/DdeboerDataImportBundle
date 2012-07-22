@@ -2,7 +2,7 @@
 
 namespace Ddeboer\DataImportBundle\Source\Filter;
 
-use Ddeboer\DataImportBundle\Source\SourceFilter;
+use Ddeboer\DataImportBundle\Source\SourceFilterInterface;
 
 /**
  * Provide uncompression for LZW-compressed files (.Z files)
@@ -12,7 +12,7 @@ use Ddeboer\DataImportBundle\Source\SourceFilter;
  *
  * @author David de Boer <david@ddeboer.nl>
  */
-class Uncompress implements SourceFilter
+class Uncompress implements SourceFilterInterface
 {
     private $target;
     private $zcatBinaryPath = 'zcat';
@@ -45,7 +45,7 @@ class Uncompress implements SourceFilter
         exec(sprintf('%s -f %s > %s 2>/dev/null',
                 $this->getZcatBinaryPath(),
                 escapeshellarg($file->getPathname()),
-                escapeshellarg($target)), 
+                escapeshellarg($target)),
             $output, $returnVar
         );
 

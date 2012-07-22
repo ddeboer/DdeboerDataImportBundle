@@ -2,7 +2,7 @@
 
 namespace Ddeboer\DataImportBundle;
 
-interface Source
+interface SourceInterface
 {
     /**
      * @return \SplFileObject

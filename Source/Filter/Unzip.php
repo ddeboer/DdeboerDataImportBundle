@@ -2,9 +2,9 @@
 
 namespace Ddeboer\DataImportBundle\Source\Filter;
 
-use Ddeboer\DataImportBundle\Source\SourceFilter;
+use Ddeboer\DataImportBundle\Source\SourceFilterInterface;
 
-class Unzip implements SourceFilter
+class Unzip implements SourceFilterInterface
 {
     private $target;
     private $filename;
@@ -30,7 +30,7 @@ class Unzip implements SourceFilter
         $zip->open($file->getPathname());
         $target = $this->target ? $this->target : sys_get_temp_dir();
         $zip->extractTo($target);
-        
+
         return new \SplFileObject($target  . '/' . $this->filename);
     }
 }
