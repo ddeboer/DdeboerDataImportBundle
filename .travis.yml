@@ -11,4 +11,4 @@ env:
 
 before_script:
   - wget -nc http://getcomposer.org/composer.phar
-  - php composer.phar update
+  - php composer.phar install --dev
