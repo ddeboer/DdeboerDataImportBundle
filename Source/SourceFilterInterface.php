@@ -13,6 +13,7 @@ interface SourceFilterInterface
      * Filter the source file
      *
      * @param \SplFileObject $file Original source file
+     *
      * @return \SplFileObject      Filtered source file
      */
     function filter(\SplFileObject $file);
