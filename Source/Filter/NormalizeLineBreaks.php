@@ -25,7 +25,9 @@ class NormalizeLineBreaks implements SourceFilterInterface
      */
     public function filter(\SplFileObject $file)
     {
-        $target = $this->target ? $this->target : tempnam(null, null);
+        $target = $this->target
+            ? $this->target
+            : tempnam(null, null) . '.' . $file->getExtension();
 
         $contents = \file_get_contents($file->getPathname());
         $normalized = $this->normalizeLineBreaks($contents);
