@@ -35,13 +35,29 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
             }
             return $input;
         }));
-    }    
+    }
 
     public function testAddCallbackWriter()
     {
         $this->getWorkflow()->addWriter(new CallbackWriter(function($item) {
-            var_dump($item);
+//            var_dump($item);
         }));
+    }
+
+    public function testWriterIsPreparedAndFinished()
+    {
+        $writer = $this->getMockBuilder('\Ddeboer\DataImportBundle\Writer\CallbackWriter')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $writer->expects($this->once())
+            ->method('prepare');
+
+        $writer->expects($this->once())
+            ->method('finish');
+        
+        $this->getWorkflow()->addWriter($writer)
+            ->process();
     }
 
     protected function getWorkflow()

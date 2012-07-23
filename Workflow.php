@@ -188,9 +188,7 @@ class Workflow
 
         // Prepare writers
         foreach ($this->writers as $writer) {
-            if ($writer instanceof Writer) {
-                $writer->prepare();
-            }
+            $writer->prepare();
         }
 
         // Read all items
@@ -222,9 +220,7 @@ class Workflow
 
         // Finish writers
         foreach ($this->writers as $writer) {
-            if ($writer instanceof Writer) {
-                $writer->finish();
-            }
+            $writer->finish();
         }
 
         return $count;
