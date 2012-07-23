@@ -2,14 +2,14 @@
 
 namespace Ddeboer\DataImportBundle\ValueConverter;
 
-use Ddeboer\DataImportBundle\ValueConverter;
+use Ddeboer\DataImportBundle\ValueConverterInterface;
 use Ddeboer\DataImportBundle\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Util\PropertyPath;
 
 /**
  * @author Markus Bachmann <markus.bachmann@bachi.biz
  */
-class ObjectConverter implements ValueConverter
+class ObjectConverter implements ValueConverterInterface
 {
     /**
      * @var string|null
