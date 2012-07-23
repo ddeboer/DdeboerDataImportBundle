@@ -53,10 +53,13 @@ class CsvReader implements ReaderInterface, \SeekableIterator
      */
     protected $columnHeaders;
 
-      /**
+    /**
      * Construct CSV reader
      *
-     * @param \SplFileObject $file  The CSV file
+     * @param \SplFileObject $file      CSV file
+     * @param string         $delimiter Delimiter
+     * @param string         $enclosure Enclosure
+     * @param string         $escape    Escape characters
      */
     public function __construct(\SplFileObject $file, $delimiter = ';', $enclosure = '"', $escape = '\\')
     {
@@ -66,10 +69,11 @@ class CsvReader implements ReaderInterface, \SeekableIterator
     /**
      * Set file and prepare it for CSV reading
      *
-     * @param \SplFileObject $file
-     * @param string $delimiter
-     * @param string $enclosure
-     * @param string $escape
+     * @param \SplFileObject $file      CSV file
+     * @param string         $delimiter Delimiter
+     * @param string         $enclosure Enclosure
+     * @param string         $escape    Escape characters
+     *
      * @return CsvReader
      */
     public function setFile(\SplFileObject $file, $delimiter = ';', $enclosure = '"', $escape = '\\')
@@ -128,11 +132,13 @@ class CsvReader implements ReaderInterface, \SeekableIterator
      * Set column headers
      *
      * @param array $columnHeaders
+     *
      * @return CsvReader
      */
     public function setColumnHeaders(array $columnHeaders)
     {
         $this->columnHeaders = $columnHeaders;
+
         return $this;
     }
 
@@ -156,12 +162,14 @@ class CsvReader implements ReaderInterface, \SeekableIterator
      * Set header row number
      *
      * @param int $rowNumber Number of the row that contains column header names
+     *
      * @return CsvReader
      */
     public function setHeaderRowNumber($rowNumber)
     {
         $this->headerRowNumber = $rowNumber;
         $this->columnHeaders = $this->readHeaderRow($rowNumber);
+
         return $this;
     }
 
@@ -186,6 +194,7 @@ class CsvReader implements ReaderInterface, \SeekableIterator
         foreach ($this as $row) {
             $rows++;
         }
+
         return $rows;
     }
 
@@ -217,25 +226,29 @@ class CsvReader implements ReaderInterface, \SeekableIterator
     /**
      * Get a row
      *
-     * @param int $number   Row number
+     * @param int $number Row number
+     *
      * @return array
      */
     public function getRow($number)
     {
         $this->seek($number);
+
         return $this->current();
     }
 
     /**
      * Read header row from CSV file
      *
-     * @param \SplFileObject
+     * @param int $rowNumber Row number
+     *
      * @return array        Column headers
      */
     protected function readHeaderRow($rowNumber)
     {
         $this->file->seek($rowNumber);
         $headers = $this->file->current();
+
         return $headers;
     }
 }
