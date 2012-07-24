@@ -283,8 +283,15 @@ class Workflow
     {
         foreach ($item as $key => $value) {
             if (isset($this->mappings[$key])) {
-                $item[$this->mappings[$key]] = $value;
-                unset($item[$key]);
+                $toField = $this->mappings[$key];
+
+                // Skip mappings where field to map from and field to map to
+                // are equal. This may not make sense as a mapping, but it can
+                // be the result of mappings that are generated automatically.
+                if ($toField != $key) {
+                    $item[$this->mappings[$key]] = $value;
+                    unset($item[$key]);
+                }
             }
         }
 
