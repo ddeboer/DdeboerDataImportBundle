@@ -133,8 +133,7 @@ class Workflow
     /**
      * Add an item converter to the workflow
      *
-     * @param string $field     Field
-     * @param type   $converter ItemConverterInterface
+     * @param ItemConverterInterface $converter Item converter
      *
      * @return $this
      */
