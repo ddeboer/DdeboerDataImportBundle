@@ -5,20 +5,20 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="ddeboer_data_import.reader.doctrine" 
-                 class="Ddeboer\DataImportBundle\Reader\DoctrineReader"
+        <service id="ddeboer_data_import.reader.doctrine"
+                 class="Ddeboer\DataImport\Reader\DoctrineReader"
                  abstract="true">
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
-        
-        <service id="ddeboer_data_import.reader.doctrine_dbal" 
-                 class="Ddeboer\DataImportBundle\Reader\DbalReader"
+
+        <service id="ddeboer_data_import.reader.doctrine_dbal"
+                 class="Ddeboer\DataImport\Reader\DbalReader"
                  abstract="true">
             <argument type="service" id="database_connection" />
         </service>
 
         <service id="ddeboer_data_import.writer.doctrine"
-                 class="Ddeboer\DataImportBundle\Writer\DoctrineWriter"
+                 class="Ddeboer\DataImport\Writer\DoctrineWriter"
                  abstract="true">
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>

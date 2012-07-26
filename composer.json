@@ -1,7 +1,7 @@
 {
     "name": "ddeboer/data-import-bundle",
     "type": "symfony-bundle",
-    "description": "A Symfony2 bundle that offers a way to import data from and store data to a range of formats and media",
+    "description": "A Symfony2 bundle for the ddeboer/data-import library",
     "keywords": [ "csv", "import" ],
     "homepage": "https://github.com/ddeboer/DdeboerDataImportBundle",
     "license": "MIT",
@@ -12,17 +12,12 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0"
-    },
-    "require-dev": {
-        "symfony/form": "2.*"
-    },
-    "suggest": {
-        "phpexcel/phpexcel": "If you want to use the ExcelReader",
-        "symfony/form": "If you want to use the ObjectConverter"
+        "php": ">=5.3.0",
+        "ddeboer/data-import": "dev-master"
     },
     "autoload": {
         "psr-0": { "Ddeboer\\DataImportBundle": "" }
     },
-    "target-dir": "Ddeboer/DataImportBundle"
+    "target-dir": "Ddeboer/DataImportBundle",
+    "minimum-stability": "dev"
 }
