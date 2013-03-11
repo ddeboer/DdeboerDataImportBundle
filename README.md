@@ -10,27 +10,13 @@ Installation
 
 This library is available on [Packagist](http://packagist.org/packages/ddeboer/data-import-bundle):
 
-To install it, add the following to your `composer.json`:
+To install it, run: 
 
-```
-"require": {
-    ...
-    "ddeboer/data-import-bundle": "dev-master",
-    ...
-}
-```
+    $ composer require ddeboer/data-import-bundle:dev-master
 
-And run `$ php composer.phar install`.
+If you’re on Symfony 2.1, use the appropriate branch instead:
 
-For Symfony 2.1, use branch `symfony-2.1` instead:
-
-```
-"require": {
-    ...
-    "ddeboer/data-import-bundle": "symfony-2.1",
-    ...
-}
-```
+    $ composer require ddeboer/data-import-bundle:symfony-2.1
 
 Then add the bundle to `app/AppKernel.php`:
 
