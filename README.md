@@ -8,7 +8,7 @@ This is a bundle for the [ddeboer/data-import library](https://github.com/ddeboe
 Installation
 ------------
 
-This library is available on [Packagist](http://packagist.org/packages/ddeboer/data-import-bundle).
+This library is available on [Packagist](http://packagist.org/packages/ddeboer/data-import-bundle):
 
 To install it, add the following to your `composer.json`:
 
@@ -18,11 +18,19 @@ To install it, add the following to your `composer.json`:
     "ddeboer/data-import-bundle": "dev-master",
     ...
 }
-...
-"minimum-stability": "dev"
 ```
 
 And run `$ php composer.phar install`.
+
+For Symfony 2.1, use branch `symfony-2.1` instead:
+
+```
+"require": {
+    ...
+    "ddeboer/data-import-bundle": "symfony-2.1",
+    ...
+}
+```
 
 Then add the bundle to `app/AppKernel.php`:
 
