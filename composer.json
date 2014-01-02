@@ -13,11 +13,10 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "ddeboer/data-import": "dev-master"
+        "ddeboer/data-import": "*"
     },
     "autoload": {
         "psr-0": { "Ddeboer\\DataImportBundle": "" }
     },
-    "target-dir": "Ddeboer/DataImportBundle",
-    "minimum-stability": "dev"
+    "target-dir": "Ddeboer/DataImportBundle"
 }
