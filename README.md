@@ -3,7 +3,7 @@ Ddeboer Data Import Bundle
 
 Introduction
 ------------
-This is a bundle for the [ddeboer/data-import library](https://github.com/ddeboer/data-import).
+This is a Symfony2 bundle for the [ddeboer/data-import library](https://github.com/ddeboer/data-import).
 
 Installation
 ------------
@@ -12,7 +12,7 @@ This library is available on [Packagist](http://packagist.org/packages/ddeboer/d
 
 To install it, run: 
 
-    $ composer require ddeboer/data-import-bundle:dev-master
+    $ composer require ddeboer/data-import-bundle:~0.1
 
 If you’re on Symfony 2.1, use the appropriate branch instead:
 
