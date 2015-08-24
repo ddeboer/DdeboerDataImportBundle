@@ -16,7 +16,7 @@ To install it, run:
 
 If you’re on Symfony 2.1, use the appropriate branch instead:
 
-    $ composer require ddeboer/data-import-bundle:symfony-2.1
+    $ composer require ddeboer/data-import-bundle:dev-symfony-2.1
 
 Then add the bundle to `app/AppKernel.php`:
 
