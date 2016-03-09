@@ -20,7 +20,7 @@ If you’re on Symfony 2.1, use the appropriate branch instead:
 
 Then add the bundle to `app/AppKernel.php`:
 
-```
+```php
 public function registerBundles()
 {
     return array(
